@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-11-24 10:02:10
- * @LastEditTime: 2021-11-26 16:32:31
+ * @LastEditTime: 2021-12-06 16:40:25
  * @LastEditors: Please set LastEditors
  * @Description: Home组件
  * @FilePath: /cloud-music/src/application/Home/Home.js
@@ -15,9 +15,9 @@ function Home(props) {
   return (
     <div>
       <Top>
-        <span className="iconfont menu">&#xe65c</span>
+        <span className="iconfont menu">&#xe65c;</span>
         <span className="title">WebApp</span>
-        <span className="iconfont search">&#xe62b</span>
+        <span className="iconfont search">&#xe62b;</span>
       </Top>
       <Tab>
         <NavLink to="/recommend" activeClassName="selected">
