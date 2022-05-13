@@ -1,10 +1,10 @@
 /*
  * @Author: your name
  * @Date: 2021-11-26 16:57:29
- * @LastEditTime: 2021-12-06 15:12:28
- * @LastEditors: Please set LastEditors
+ * @LastEditTime : 2022-05-13 11:03:37
+ * @LastEditors  : wanglei
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
- * @FilePath: /cloud-music/src/components/slider/index.js
+ * @FilePath     : /cloud-music/src/components/slider/index.js
  */
 
 import React, { useEffect, useState } from 'react';
@@ -15,6 +15,7 @@ import Swiper from 'swiper';
 function Slider(props) {
   const [sliderSwiper, setSliderSwiper] = useState(null);
   const { bannerList } = props;
+  
   useEffect(() => {
     if (bannerList.length && !sliderSwiper) {
       let newSliderSwiper = new Swiper('.slider-container', {

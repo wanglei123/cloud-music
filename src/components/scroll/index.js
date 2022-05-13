@@ -1,10 +1,10 @@
 /*
  * @Author: your name
  * @Date: 2021-12-08 16:38:54
- * @LastEditTime: 2021-12-08 17:25:19
- * @LastEditors: Please set LastEditors
+ * @LastEditTime : 2022-05-13 11:34:07
+ * @LastEditors  : wanglei
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
- * @FilePath: /cloud-music/src/components/scroll/index.js
+ * @FilePath     : /cloud-music/src/components/scroll/index.js
  */
 import React, { useEffect, useState, useRef, forwardRef,useImperativeHandle } from 'react'
 import PropTypes from 'prop-types';
@@ -26,8 +26,8 @@ const Scroll = forwardRef((props, ref) => {
 
   useEffect(() => {
     const scroll = new BScroll (scrollContaninerRef.current, {
-      scrollX: direction = 'horizental',
-      scrollY: direction = 'vertical',
+      scrollX: direction === 'horizental',
+      scrollY: direction === 'vertical',
       probeType: 3,
       click: click,
       bounce: {
@@ -41,12 +41,14 @@ const Scroll = forwardRef((props, ref) => {
     }
   }, [])
 
+  // 每次重新渲染都要刷新实例，防止无法滑动
   useEffect(() => {
     if (refresh && bScroll){
       bScroll.refresh();
     }
   })
 
+  // 给实例绑定scroll事件
   useEffect(() => {
     if (!bScroll || !onScroll) return;
     bScroll.on('scroll',(scroll) => {
@@ -57,6 +59,7 @@ const Scroll = forwardRef((props, ref) => {
     }
   }, [onScroll, bScroll])
 
+  // 进行上拉到底的判断，调用上拉刷新函数
   useEffect(() => {
     if(!bScroll || !pullUp) return;
     bScroll.on('scrollEnd',() => {
@@ -71,6 +74,7 @@ const Scroll = forwardRef((props, ref) => {
 
   }, [pullUp, bScroll])
 
+  // 进行下拉刷新判断，调用下拉刷新的函数
   useEffect( () => {
     if (!bScroll || !pullDown) return;
     bScroll.on('touchEnd', (pos) => {
@@ -91,6 +95,7 @@ const Scroll = forwardRef((props, ref) => {
         bScroll.scrollTo(0,0)
       }
     },
+    // 给外界暴露getBScroll 方法，提供 bs实例
     getBScroll(){
       if(bScroll){
         return bScroll;
@@ -121,15 +126,16 @@ Scroll.defaultProps = {
 }
 
 Scroll.propTypes = {
-  direction: PropTypes.oneOf(['vertical', 'horizental']),
-  refresh: PropTypes.bool,
-  onScroll: PropTypes.func,
-  pullUp: PropTypes.func,
-  pullDown: PropTypes.func,
-  pullUpLoading: PropTypes.bool,
-  pullDownLoading: PropTypes.bool,
-  bounceTop: PropTypes.bool,
-  bounceBottom: PropTypes.bool
+  direction: PropTypes.oneOf(['vertical', 'horizental']), // 滚动的方向
+  click: true, // 是否支持点击
+  refresh: PropTypes.bool, // 是否刷新
+  onScroll: PropTypes.func, // 滑动触发的回调函数
+  pullUp: PropTypes.func, // 上拉加载逻辑
+  pullDown: PropTypes.func, // 下拉加载逻辑
+  pullUpLoading: PropTypes.bool, // 是否显示上拉loading动画
+  pullDownLoading: PropTypes.bool, // 是否显示下拉loading 动画
+  bounceTop: PropTypes.bool, // 是否支持向上吸顶
+  bounceBottom: PropTypes.bool // 是否fcrftm下吸底
 }
 
 export default Scroll;
